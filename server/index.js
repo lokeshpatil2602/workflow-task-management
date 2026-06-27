@@ -25,6 +25,8 @@ const app = express();
 
 /* ================= SECURITY MIDDLEWARE ================= */
 
+app.set("trust proxy", 1); // Trust Railway's proxy
+
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 
 const limiter = rateLimit({
