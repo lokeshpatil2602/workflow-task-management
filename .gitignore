@@ -10,6 +10,7 @@ client/.env
 
 # Build output
 client/dist/
+!client/dist/.gitkeep
 
 # Logs
 logs/
