@@ -4,7 +4,8 @@
   "description": "Full-stack Task & Project Management System",
   "main": "server/index.js",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "cd server && node index.js",
+    "install:server": "npm install --prefix server"
   },
   "dependencies": {
     "dotenv": "^17.3.1"
