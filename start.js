@@ -7,14 +7,28 @@ const isClient = serviceName.toLowerCase().includes("client") || process.env.STA
 
 if (isClient) {
   // Serve static React build
-  const { execSync, spawn } = require("child_process");
+  const { spawn } = require("child_process");
+  const path = require("path");
   const port = process.env.PORT || 3000;
+
+  // Try multiple possible dist locations
+  const fs = require("fs");
+  let distPath = path.join(__dirname, "dist");
+  if (!fs.existsSync(distPath)) {
+    distPath = path.join(__dirname, "client", "dist");
+  }
+  if (!fs.existsSync(distPath)) {
+    distPath = path.join(__dirname, "..", "dist");
+  }
+
   console.log(`🌐 Starting frontend server on port ${port}...`);
-  const child = spawn("node", ["node_modules/.bin/serve", "-s", "dist", "-l", String(port)], {
-    stdio: "inherit",
-    cwd: __dirname,
-    env: process.env,
-  });
+  console.log(`📁 Serving from: ${distPath}`);
+
+  const child = spawn(
+    "node",
+    ["node_modules/.bin/serve", distPath, "-l", String(port)],
+    { stdio: "inherit", cwd: __dirname, env: process.env }
+  );
   child.on("exit", (code) => process.exit(code));
 } else {
   // Start backend server
