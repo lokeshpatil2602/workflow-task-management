@@ -1,0 +1,287 @@
+/* ================= GLOBAL ================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background-color: #f4f6f9;
+  color: #1f2937;
+}
+
+/* ================= HEADER ================= */
+
+.employee-header {
+  background: #ffffff;
+  padding: 0 2rem;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.employee-header h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ✅ HEADER ACTIONS */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ================= NOTIFICATION ICON ================= */
+
+.notification-wrapper {
+  position: relative;
+}
+
+.bell-icon {
+  font-size: 26px; /* 🔥 FIXED BIG ICON */
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  background: #f1f3f5;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bell-icon:hover {
+  background: #e2e6ea;
+  transform: scale(1.1);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* ================= LOGOUT ================= */
+
+.logout-btn {
+  background: linear-gradient(to right, #ef4444, #dc2626);
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= SIDEBAR ================= */
+
+.employee-sidebar {
+  background: #ffffff;
+  height: calc(100vh - 70px);
+  padding: 20px 15px;
+  position: fixed;
+  width: 230px;
+  top: 70px;
+  left: 0;
+  border-right: 1px solid #e5e7eb;
+}
+
+.employee-sidebar a {
+  display: block;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: #374151;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.employee-sidebar a:hover {
+  background-color: #eef2ff;
+  color: #4f46e5;
+}
+
+.employee-sidebar .active {
+  background-color: #4f46e5;
+  color: white;
+}
+
+/* ================= MAIN ================= */
+
+.employee-main {
+  margin-left: 230px;
+  padding: 2rem;
+  margin-top: 80px;
+}
+
+/* ================= BADGES ================= */
+
+.priority-badge,
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 90px;
+  text-align: center;
+}
+
+/* PRIORITY */
+.priority-badge.low {
+  background: #e6f9f0;
+  color: #27ae60;
+}
+
+.priority-badge.medium {
+  background: #fff4e5;
+  color: #e67e22;
+}
+
+.priority-badge.high {
+  background: #ffeaea;
+  color: #e74c3c;
+}
+
+/* STATUS (🔥 FIXED VISIBILITY) */
+.status-badge.pending {
+  background: #ffe5e5;
+  color: #d63031;
+}
+
+.status-badge.inprogress {
+  background: #fff4e5;
+  color: #e67e22;
+}
+
+.status-badge.completed {
+  background: #e6f9f0;
+  color: #27ae60;
+}
+
+/* ================= NOTIFICATIONS ================= */
+
+.notification-dropdown {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  width: 320px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification-header {
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background: #f9fafb;
+}
+
+.notification-item.unread {
+  background: #eef2ff;
+  border-left: 4px solid #4f46e5;
+}
+
+.notification-icon {
+  font-size: 18px;
+}
+
+.notification-content p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.no-notifications {
+  text-align: center;
+  padding: 20px;
+  color: #9ca3af;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .employee-sidebar {
+    width: 180px;
+  }
+
+  .employee-main {
+    margin-left: 180px;
+  }
+}
+/* ================= FOOTER ================= */
+
+.employee-footer {
+  background: #ffffff;
+  text-align: center;
+  padding: 14px 20px;
+  border-top: 1px solid #e5e7eb;
+  margin-left: 230px;
+  font-size: 13px;
+  color: #6b7280;
+  position: relative;
+}
+
+/* subtle top shadow */
+.employee-footer::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), transparent);
+}
+
+/* hover effect (optional premium touch) */
+.employee-footer:hover {
+  color: #4f46e5;
+}

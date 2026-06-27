@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment files — NEVER commit these
+.env
+server/.env
+client/.env
+
+# Build output
+client/dist/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Uploads (user data — use object storage in production)
+server/uploads/*
+!server/uploads/.gitkeep
+!server/uploads/submissions/.gitkeep
+!server/uploads/chat/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Test artifacts
+server/migrations/testApis.js

@@ -1,0 +1,411 @@
+/* ================= FLOATING BUTTON ================= */
+.floatingButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 22px;
+  padding: 14px 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  transition: 0.2s;
+}
+
+.floatingButton:hover {
+  transform: scale(1.1);
+}
+
+/* ================= CHAT CONTAINER ================= */
+.chatContainer {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 320px;
+  height: 480px;
+
+  background: #ffffff !important;
+
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  opacity: 1 !important;
+
+  z-index: 99999;
+}
+
+/* ================= HEADER ================= */
+.chatHeader {
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  position: relative;
+  z-index: 10;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.headerAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatTitle {
+  flex: 1;
+}
+
+.headerMenu {
+  position: relative;
+}
+
+.menuBtn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ================= DROPDOWN ================= */
+.headerDropdown {
+  position: absolute;
+  right: 10px;
+  top: 45px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  min-width: 140px;
+  z-index: 1000;
+}
+
+.headerDropdown button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.headerDropdown button:hover {
+  background: #f3f4f6;
+}
+
+/* ================= USER LIST ================= */
+.userListView {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.listHeader {
+  text-align: center;
+  font-weight: bold;
+}
+
+.userList {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* hide scrollbar */
+.userList::-webkit-scrollbar {
+  display: none;
+}
+.userList {
+  scrollbar-width: none;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.userItem:hover {
+  background: #f3f4f6;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= CHAT VIEW ================= */
+.chatView {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ================= MESSAGES ================= */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: #f9fafb;
+}
+
+/* hide scrollbar */
+.messages::-webkit-scrollbar {
+  display: none;
+}
+.messages {
+  scrollbar-width: none;
+}
+
+/* ================= MESSAGE ROW ================= */
+.messageRow {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.sent {
+  justify-content: flex-end;
+}
+
+.received {
+  justify-content: flex-start;
+}
+
+/* ================= MESSAGE BUBBLE ================= */
+.messageBubble {
+  max-width: 75%;
+  padding: 10px 12px 18px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  position: relative; /* important for hover meta */
+  transition: 0.2s;
+  min-width: 60px; /* 👈 prevents too small bubble */
+}
+
+.sent .messageBubble {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.sent .messageBubble a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.received .messageBubble {
+  background: white;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+.messageBubble:hover {
+  transform: scale(1.02);
+}
+
+/* ================= MESSAGE META (HOVER ONLY) ================= */
+/* hidden by default */
+.messageMeta {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transition: 0.2s ease;
+}
+
+/* show on hover */
+.messageBubble:hover .messageMeta {
+  opacity: 1;
+}
+
+/* sent vs received color */
+.sent .messageMeta {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.received .messageMeta {
+  color: #6b7280;
+}
+
+/* ================= TICKS ================= */
+.tick::after {
+  content: "✓";
+}
+
+.tick.delivered::after {
+  content: "✓✓";
+}
+
+.tick.seen::after {
+  content: "✓✓";
+  color: #22c55e;
+}
+
+/* ================= FILE ================= */
+.fileCard {
+  margin-top: 6px;
+}
+
+.chatImage {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* ================= INPUT ================= */
+.inputWrapper {
+  padding: 10px;
+  border-top: 1px solid #e5e7eb;
+  background: white;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.inputContainer input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  outline: none;
+}
+
+.inputContainer button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.inputContainer button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================= FILE PREVIEW ================= */
+.filePreview {
+  background: #f3f4f6;
+  padding: 6px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.removeFile {
+  cursor: pointer;
+}
+
+/* ================= EMPTY ================= */
+.emptyChat {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.loading {
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ================= CONTEXT MENU ================= */
+.messageMenu {
+  position: fixed;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 999;
+}
+
+.messageMenu button {
+  display: block;
+  padding: 10px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.messageMenu button:hover {
+  background: #f3f4f6;
+}
+.messageMeta span {
+  white-space: nowrap; /* 👈 FIX */
+}
+.sectionTitle {
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  border-top: 1px solid #e5e7eb;
+}
+
+.chatHeader {
+  background: #2563eb;
+  color: white;
+  min-height: 58px;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.userList {
+  background: #ffffff;
+}
+
+.userItem {
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.userItem:hover {
+  background: #f8fafc;
+}

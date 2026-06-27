@@ -1,0 +1,69 @@
+services:
+  # ─────────────────────────────────────
+  # Backend — Node.js API
+  # ─────────────────────────────────────
+  - type: web
+    name: workflow-server
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        generateValue: true          # Render auto-generates a secure random value
+      - key: DB_HOST
+        fromDatabase:
+          name: workflow-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: workflow-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: workflow-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: workflow-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: workflow-db
+          property: database
+      - key: BASE_URL
+        sync: false                  # Set manually to your Render backend URL
+      - key: CLIENT_URL
+        sync: false                  # Set manually to your Render frontend URL
+
+  # ─────────────────────────────────────
+  # Frontend — React (Static Site)
+  # ─────────────────────────────────────
+  - type: web
+    name: workflow-client
+    runtime: static
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html    # React Router fallback
+    envVars:
+      - key: VITE_API_URL
+        sync: false                  # Set manually to workflow-server URL
+      - key: VITE_SOCKET_URL
+        sync: false                  # Set manually to workflow-server URL
+
+# ─────────────────────────────────────
+# MySQL Database (Render managed)
+# ─────────────────────────────────────
+databases:
+  - name: workflow-db
+    databaseName: workflow
+    user: workflow_user

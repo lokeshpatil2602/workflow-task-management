@@ -1,0 +1,99 @@
+name: CI — Build & Test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  # ─────────────────────────────────────
+  # Frontend Build
+  # ─────────────────────────────────────
+  client-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: http://localhost:5000
+          VITE_SOCKET_URL: http://localhost:5000
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: client-dist
+          path: client/dist/
+
+  # ─────────────────────────────────────
+  # Backend Lint & Syntax Check
+  # ─────────────────────────────────────
+  server-check:
+    name: Backend Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Syntax check (node --check)
+        run: |
+          node --check index.js
+          node --check routes/authRoutes.js
+          node --check routes/adminRoutes.js
+          node --check routes/taskRoutes.js
+          node --check routes/projectRoutes.js
+          node --check routes/submissionRoutes.js
+          node --check routes/employeeRoutes.js
+          node --check routes/notificationRoutes.js
+          node --check routes/chatRoutes.js
+
+  # ─────────────────────────────────────
+  # Docker Build Check
+  # ─────────────────────────────────────
+  docker-build:
+    name: Docker Compose Build
+    runs-on: ubuntu-latest
+    needs: [client-build, server-check]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create .env for compose
+        run: |
+          echo "DB_PASSWORD=testpassword" >> .env
+          echo "JWT_SECRET=test_jwt_secret_for_ci" >> .env
+          echo "BASE_URL=http://localhost" >> .env
+          echo "CLIENT_URL=http://localhost" >> .env
+
+      - name: Build Docker images
+        run: docker compose build --no-cache
