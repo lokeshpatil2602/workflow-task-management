@@ -8,9 +8,8 @@ server/node_modules/
 server/.env
 client/.env
 
-# Build output
-client/dist/
-!client/dist/.gitkeep
+# Build output — allow client/dist for Railway deployment
+# client/dist/
 
 # Logs
 logs/
